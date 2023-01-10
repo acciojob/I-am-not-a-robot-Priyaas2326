@@ -1,79 +1,55 @@
 //your code here
-// 1. loadin/placing the first 5 images from images folder to the the screen
-let mainDiv = document.getElementById('main');
-for (let i = 1; i <= 5; i++) {
-    let img = document.createElement('img');
-    img.setAttribute('src', `images/${i}.jpeg`);
-    img.setAttribute('data-ns-img', i)
-    img.onclick = function (e) {
-        readCaptcha(this);
-    };
-    img.height = 100;
-    img.width = 100;
-    mainDiv.append(img);
-}
-
-// generate a random number between 1 and 5
-let n = Math.floor(Math.random() * 5) + 1;
-let img = document.createElement('img');
-img.setAttribute('src', `images/${n}.jpeg`);
-img.setAttribute('data-ns-img', n)
-img.height = 100;
-img.width = 100;
-img.onclick = function (e) {
-    readCaptcha(this);
-};
-mainDiv.append(img);
-
-let captcha = [];
-let flag = false;
-let click1 = 0;
-let click2 = 0;
-let verify = document.createElement('button');
-verify.innerHTML = 'Verify';
-
-let reset = document.createElement('button');
-reset.innerHTML = 'Reset';
-
-function readCaptcha(e) {
-    console.log(e.getAttribute('data-ns-img'));
-    // captcha.push(e.getAttribute('data-ns-img'));
-    // console.log(captcha);
-    if (flag != false)
-        click2 = e.getAttribute('data-ns-img');
-    else
-        click1 = e.getAttribute('data-ns-img');
-
-    // flag = true;
-    console.log(click1, click2);
-
-    if (click1 != 0 && flag == false && !mainDiv.contains(reset)) {
-
-        mainDiv.append(reset);
-        reset.onclick = resetCaptcha;
+let n = Math.floor(Math.random() * 5 + 1);
+let main = document.getElementsByTagName('main')[0];
+let images = document.querySelectorAll('img');
+var randomImage = document.getElementsByClassName('none')[0];
+let imageContainer = document.getElementsByClassName("image")[0];
+let arr = [];
+let reset = document.getElementById('reset');
+reset.style.display = 'none';
+let verify = document.getElementById('verify');
+let result = document.getElementsByClassName('para')[0];
+verify.style.display = 'none';
+randomImage.setAttribute("class", `img${n}`);
+images.forEach((e)=>{
+  e.addEventListener('click', ()=>{
+    e.style.border = "8px solid blue";
+    arr.push(e.getAttribute('class'));
+    if(arr.length>0 && arr.length<3){
+      reset.style.display = 'block';
     }
-    if (click1 != 0 && click2 != 0 && !mainDiv.contains(verify)) {
-        // let verify = document.createElement('button');
-        // verify.innerHTML = 'Verify';
-        mainDiv.append(verify);
-        verify.onclick = checkCaptcha;
+    if(arr.length==2){
+      verify.style.display = 'block';
     }
-    flag = true;
-}
+    if(arr.length>2){
+      reset.style.display = 'none';
+      verify.style.display = 'none';
+      let para = document.createElement('p');
+      para.innerText = "Please select only 2 images. Kindly refresh the page";
+      main.append(para);
+    }
+  })
+})
 
-//
-function checkCaptcha() {
-    if (click1 == click2) {
-        console.log('verified');
-    }
-    else {
-        console.log('not verified');
-    }
-}
+reset.addEventListener('click',()=>{
+  for(let i = 0;i<=arr.length;i++){
+    arr.pop();
+  }
+  reset.style.display = "none";
+  result.innerText = "";
+  verify.style.display = 'none'
+  images.forEach((e)=>{
+      e.style.border = 'none';
+  })
+})
 
-function resetCaptcha() {
-    // location.reload();
-    click1 = 0;
-    click2 = 0;
-    flag = false;
-}
+verify.addEventListener('click',()=>{
+  if(arr[0]==arr[1]){
+     result.innerText = 'You are a human. Congratulations!.';
+  }else{
+    result.innerText = "We can't verify you as a human. You selected the non-identical tiles.";
+  }
+})
+
+imageContainer.append(randomImage);
+// random image was added till yet
