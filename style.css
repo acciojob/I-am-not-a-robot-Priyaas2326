@@ -1,13 +1,13 @@
 .img1 {
-  content: url("https://picsum.photos/id/237/200/300");
+  content: url("https://media1.popsugar-assets.com/files/thumbor/C04Z8ssCUV7WLn_lwmOTLD2haz0/358x0:3543x3185/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2019/08/07/730/n/44701584/2a00446a5d4afd18bde650.59840750_/i/Pictures-Dogs-Making-Funny-Faces.jpg");
 }
 
 .img2 {
-  content: url("https://picsum.photos/seed/picsum/200/300");
+  content: url("https://i.pinimg.com/550x/91/ec/db/91ecdbb8e284bf3dad648fc1b7f78edf.jpg");
 }
 
 .img3 {
-  content: url("https://picsum.photos/200/300?grayscale");
+  content: url("https://i.pinimg.com/736x/ef/0a/f6/ef0af66a518a027163be074a3ef767ee.jpg");
 }
 .img4 {
   content: url("https://picsum.photos/200/300/");
